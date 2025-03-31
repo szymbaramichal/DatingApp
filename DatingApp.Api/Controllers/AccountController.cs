@@ -3,17 +3,18 @@ using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Api.Data;
 using DatingApp.Api.Entities;
+using DatingApp.Api.Interfaces;
 using DatingApp.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Api.Controllers;
 
-public class AccountController(DataContext context) : BaseApiController
+public class AccountController(DataContext context, ITokenService tokenService) : BaseApiController
 {
     
     [HttpPost("register")]
-    public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
         if(await UserExists(registerDto.UserName))
             return BadRequest("UserName is already taken.");
@@ -30,11 +31,14 @@ public class AccountController(DataContext context) : BaseApiController
         await context.AppUsers.AddAsync(appUser);
         await context.SaveChangesAsync();
 
-        return Ok(appUser);
+        return new UserDto {
+            Username = appUser.UserName,
+            Token = tokenService.CreateToken(appUser),
+        };
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await context.AppUsers.FirstOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
 
@@ -51,7 +55,10 @@ public class AccountController(DataContext context) : BaseApiController
                 return BadRequest("Invalid username or password");
         }
 
-        return user;
+        return new UserDto {
+            Username = user.UserName,
+            Token = tokenService.CreateToken(user),
+        };
     }
 
 

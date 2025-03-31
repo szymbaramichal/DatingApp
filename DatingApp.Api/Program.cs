@@ -1,5 +1,4 @@
-using DatingApp.Api.Data;
-using Microsoft.EntityFrameworkCore;
+using DatingApp.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +8,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddApplicationServices(builder.Configuration);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -22,9 +22,6 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddDbContext<DataContext>(opt => 
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DatabaseConnection"))
-);
 
 var app = builder.Build();
 
@@ -39,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
