@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DatingApp.Api.Data;
 using DatingApp.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController(DataContext context) : ControllerBase
+public class UsersController(DataContext context) : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<ICollection<AppUser>>> GetUsers()
