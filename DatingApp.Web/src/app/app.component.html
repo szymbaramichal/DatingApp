@@ -1,7 +1,9 @@
-<h1>{{title}}</h1>
+<app-nav></app-nav>
 
-<ul>
-    @for (user of users; track user.id) {
-        <li>{{user.id}} - {{user.userName}}</li>
-    }
-</ul>
+<div class="container">
+    <ul>
+        @for (user of users; track user.id) {
+            <li>{{user.id}} - {{user.userName}}</li>
+        }
+    </ul>
+</div>
