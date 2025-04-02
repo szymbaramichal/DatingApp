@@ -1,0 +1,19 @@
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://source.unsplash.com/1600x900/?couple,dating') center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.cta-btn {
+    background-color: #ff4d6d;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.feature-icon {
+    font-size: 40px;
+    color: #ff4d6d;
+}
