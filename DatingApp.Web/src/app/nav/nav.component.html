@@ -1,20 +1,27 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Dating app</a>
+      <a class="navbar-brand" routerLink="/" routerLinkActive="active">Dating app</a>
 
-    <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountService.currentUser()">
-        <li class="nav-item">
-            <a class="nav-link">Lists</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link">Messages</a>
-        </li>
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ng-container *ngIf="accountService.currentUser()">
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="/lists">Lists</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="/messages">Messages</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="/members">Members</a>
+            </li>
+        </ng-container>
     </ul>
 
     @if(accountService.currentUser())
     {
         <div dropdown class="dropdown">
-            <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">Welcome user!</a>
+            <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">
+                Welcome {{this.accountService.currentUser()?.username | titlecase}}!
+            </a>
             <div *dropdownMenu class="dropdown-menu">
                 <a class="dropdown-item">Edit profile</a>
                 <div class="dropdown-divider"></div>
@@ -30,7 +37,7 @@
         <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex">
             <input name="username" [(ngModel)]="model.username" class="form-control me-2" placeholder="Username">
             <input name="password" [(ngModel)]="model.password" class="form-control me-2" placeholder="Password" type="password">
-            <button class="btn btn-outline-success" type="submit">Login</button>
+            <button class="btn btn-success" type="submit">Login</button>
         </form>
     }
     </div>
