@@ -1,3 +1,5 @@
+using DatingApp.Api.Extensions;
+
 namespace DatingApp.Api.Entities;
 
 public class AppUser
@@ -5,6 +7,22 @@ public class AppUser
     public int Id { get; set; }
     public required string UserName { get; set; }
 
-    public required byte[] PasswordHash { get; set; }
-    public required byte[] PasswordSalt { get; set; }
+    public byte[] PasswordHash { get; set; } = [];
+    public byte[] PasswordSalt { get; set; } = [];
+
+    public DateOnly DateOfBirth { get; set; }
+    public required string KnownAs { get; set; }
+    public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
+    public DateTime LastActive { get; set; } = DateTime.UtcNow;
+
+    public required string Gender { get; set; }
+    public string? Introduction { get; set; }
+    public string? Interests { get; set; }
+    public string? LookingFor { get; set; }
+    public required string City { get; set; }
+    public required string Country { get; set; }
+
+    public List<Photo> Photos { get; set; } = []; // nav prop, we dont add db set for that
+
+    public int GetAge() => DateOfBirth.CalculateAge(); //by GETAge() automapper map this to age prop
 }
