@@ -5,8 +5,9 @@ namespace DatingApp.Api.Models;
 public record RegisterDto
 {
     [Required]
-    public required string UserName { get; init; }
+    public string UserName { get; init; } = string.Empty;
     
     [Required]
-    public required string Password { get; init; }    
+    [StringLength(8, MinimumLength = 6)]
+    public string Password { get; init; } = string.Empty;
 }
