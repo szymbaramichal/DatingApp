@@ -24,5 +24,5 @@ public class AppUser
 
     public List<Photo> Photos { get; set; } = []; // nav prop, we dont add db set for that
 
-    public int GetAge() => DateOfBirth.CalculateAge(); //by GETAge() automapper map this to age prop
+    // public int GetAge() => DateOfBirth.CalculateAge(); //by GETAge() automapper map this to age prop
 }

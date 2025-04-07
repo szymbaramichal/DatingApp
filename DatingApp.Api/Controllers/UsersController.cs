@@ -8,34 +8,23 @@ using Microsoft.AspNetCore.Mvc;
 namespace DatingApp.Api.Controllers;
 
 [Authorize]
-public class UsersController(IUserRepository userRepository, IMapper mapper) : BaseApiController
+public class UsersController(IUserRepository userRepository) : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
     {
-        var users = await userRepository.GetUsersAsync();
-        return Ok(mapper.Map<MemberDto>(users));
-    }
-
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<MemberDto>> GetUserById(int id)
-    {
-        var user = await userRepository.GetUserByIdAsync(id);
-
-        if (user is null)
-            return NotFound();
-
-        return Ok(mapper.Map<MemberDto>(user));
+        var users = await userRepository.GetMembersAsync();
+        return Ok(users);
     }
 
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUserByUsername(string username)
     {
-        var user = await userRepository.GetUserByUsernameAsync(username);
+        var user = await userRepository.GetMemberAsync(username);
 
         if (user is null)
             return NotFound();
 
-        return Ok(mapper.Map<MemberDto>(user));
+        return Ok(user);
     }
 }

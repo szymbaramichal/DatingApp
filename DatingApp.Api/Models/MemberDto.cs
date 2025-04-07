@@ -19,5 +19,4 @@ public class MemberDto
     public string? Country { get; set; }
 
     public List<PhotoDto> Photos { get; set; } 
-
 }
