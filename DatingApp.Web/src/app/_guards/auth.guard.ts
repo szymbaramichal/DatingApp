@@ -13,6 +13,4 @@ export const authGuard: CanActivateFn = (route, state) => {
     toastr.error("You don't have access to that resource.");
     return false;
   }
-
-  return true;
 };

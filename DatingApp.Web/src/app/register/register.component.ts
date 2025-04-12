@@ -14,7 +14,6 @@ export class RegisterComponent {
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
 
-  @Input() userFromHomeComponent: any;
   @Output() cancelRegister = new EventEmitter();
   
   model: any = {};

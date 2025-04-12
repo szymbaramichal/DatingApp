@@ -11,17 +11,6 @@
         >
         <label>Username</label>
     </div>
-    <div class="mb-3">
-        <label>test</label>
-        <select class="form-select">
-            @for(user of userFromHomeComponent; track $index)
-            {
-                <option [value]="user.username">
-                    {{user.userName}}
-                </option>
-            }
-        </select>
-    </div>
     <div class="mb-3 form-floating">
         <input 
             type="text"
