@@ -42,7 +42,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await context.AppUsers.FirstOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
+        var user = await context.AppUsers.Include(x => x.Photos).FirstOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
 
         if(user is null)
             return BadRequest("Invalid username or password");
@@ -60,6 +60,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         return new UserDto {
             Username = user.UserName,
             Token = tokenService.CreateToken(user),
+            PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
         };
     }
 

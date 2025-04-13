@@ -18,8 +18,7 @@ export class AccountService { //singleton, created while starting app and dispos
       map(response => {
         if(response)
         {
-          localStorage.setItem('user', JSON.stringify(response));
-          this.currentUser.set(response)
+          this.setCurrentUser(response);
         }
       })
     );
@@ -30,12 +29,16 @@ export class AccountService { //singleton, created while starting app and dispos
       map(response => {
         if(response)
         {
-          localStorage.setItem('user', JSON.stringify(response));
-          this.currentUser.set(response);
+          this.setCurrentUser(response);
         }
         return response;
       })
     );
+  }
+
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUser.set(user);
   }
 
   logout() {
