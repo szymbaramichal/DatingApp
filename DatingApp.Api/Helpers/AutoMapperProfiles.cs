@@ -17,6 +17,8 @@ namespace DatingApp.Api.Helpers
 
             CreateMap<MemberUpdateDto, AppUser>();
 
+            CreateMap<string, DateOnly>()
+                .ConvertUsing(dateString => DateOnly.Parse(dateString));
         }
     }
 }
